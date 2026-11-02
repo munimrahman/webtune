@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Word counter fixture</title>
+<style>body { font-family: sans-serif; margin: 16px; } #article { width: 420px; }</style>
+</head>
+<body>
+  <article id="article">
+    <p id="p1">Hello world this is WebTune</p>
+    <p id="p2">Hello, world! How are you?</p>
+    <p id="p3">Hello    <b>big</b>
+      world</p>
+    <p id="p4">আমি বাংলায় লিখছি।</p>
+    <p id="p5">আমি WebTune ব্যবহার করছি।</p>
+    <p id="p6">I have 500 books.</p>
+    <p id="p7">One two three four five six seven eight nine ten</p>
+    <p id="p8">...&nbsp;&nbsp;?!</p>
+    <p id="hidden" style="display:none">hidden words must not be counted</p>
+  </article>
+  <textarea id="area" rows="2" cols="40">alpha beta gamma delta</textarea>
+  <div id="added"></div>
+  <script>
+    document.getElementById('added').innerHTML = '<p id="late">Dynamic words appear after load</p>';
+  </script>
+</body>
+</html>

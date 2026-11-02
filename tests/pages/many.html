@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Many images fixture</title>
+<style>
+  body { font-family: sans-serif; margin: 8px; }
+  #wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+  #wrap img { width: 80px; height: 54px; }
+</style>
+</head>
+<body>
+  <div id="wrap"></div>
+  <script>
+    const count = Number(new URLSearchParams(location.search).get('n') || 100);
+    const files = ['red', 'green', 'blue', 'gray'];
+    const wrap = document.getElementById('wrap');
+    for (let i = 0; i < count; i++) {
+      const img = document.createElement('img');
+      img.id = 'i' + i;
+      img.src = 'assets/' + files[i % 4] + '.svg';
+      wrap.append(img);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Copy protection fixture</title>
+<style>
+  body { font-family: sans-serif; margin: 16px; -webkit-user-select: none; user-select: none; }
+  .locked { user-select: none !important; }
+  #article { width: 420px; }
+  button { padding: 6px 12px; }
+  input { display: block; margin: 8px 0; width: 260px; }
+  #shadow-host { display: block; margin-top: 12px; }
+</style>
+</head>
+<body>
+  <article id="article">
+    <h1 id="title">Protected headline</h1>
+    <p id="p1">First protected paragraph with plain words.</p>
+    <p id="p2" class="locked">Second paragraph locked by an important class rule.</p>
+    <p id="p3" style="user-select: none">Third paragraph locked by an inline style.</p>
+    <p id="p4" style="user-select: none !important">Fourth paragraph locked by an inline important style.</p>
+    <ul><li id="li">List item text</li></ul>
+    <p>Mixed <span id="span">span text</span> and <a id="link" href="#anchor">a link</a>.</p>
+  </article>
+  <button id="btn" class="locked" type="button">Buy now</button>
+  <input id="paste-input" value="" onpaste="return false" placeholder="paste is blocked here">
+  <input id="cut-input" value="cut me" oncut="return false">
+  <input id="copy-input" value="copy me" oncopy="return false">
+  <div id="added"></div>
+  <div id="shadow-host"></div>
+
+  <script>
+    // Every blocking technique the feature targets, each one counting how often it ran.
+    window.__hits = {};
+    const hit = (name) => { window.__hits[name] = (window.__hits[name] || 0) + 1; };
+    const block = (name) => (e) => { hit(name); e.preventDefault(); return false; };
+
+    document.oncontextmenu = () => { hit('document.oncontextmenu'); return false; };
+    document.oncopy = () => { hit('document.oncopy'); return false; };
+    document.oncut = () => { hit('document.oncut'); return false; };
+    document.onselectstart = () => { hit('document.onselectstart'); return false; };
+    document.onmousedown = (e) => { if (e.button === 2) hit('document.onmousedown'); };
+
+    for (const type of ['contextmenu', 'copy', 'cut', 'paste', 'selectstart', 'beforecopy']) {
+      document.addEventListener(type, block('document.' + type));
+      window.addEventListener(type, block('window.' + type));
+    }
+    document.addEventListener('mousedown', (e) => { if (e.button === 2) { hit('mousedown'); e.preventDefault(); } });
+    document.addEventListener('mouseup', (e) => { if (e.button === 2) { hit('mouseup'); e.preventDefault(); } });
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && ['a', 'c', 'x', 'v'].includes(e.key.toLowerCase())) { hit('keydown'); e.preventDefault(); }
+    });
+    // Unrelated page behaviour that must keep working.
+    document.addEventListener('mousedown', (e) => { if (e.button === 0) hit('leftmousedown'); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hit('escape'); });
+    document.getElementById('btn').addEventListener('click', () => hit('buttonclick'));
+
+    // Content that arrives after load, protected the same way (inline handlers + user-select).
+    window.addLocked = (text = 'Dynamic locked text') => {
+      const p = document.createElement('p');
+      p.className = 'dyn';
+      p.setAttribute('style', 'user-select: none');
+      p.setAttribute('oncontextmenu', 'return false');
+      p.setAttribute('oncopy', 'return false');
+      p.textContent = text;
+      document.getElementById('added').append(p);
+      return p;
+    };
+
+    // Open shadow root with the same protections.
+    const root = document.getElementById('shadow-host').attachShadow({ mode: 'open' });
+    root.innerHTML = '<style>p { user-select: none; }</style><p id="shadow-p" oncontextmenu="return false">Shadow protected text</p>';
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Copy SPA fixture</title>
+<style>
+  body { font-family: sans-serif; margin: 16px; user-select: none; }
+</style>
+</head>
+<body>
+  <nav><a id="to-a" href="/a">A</a> <a id="to-b" href="/b">B</a></nav>
+  <main id="view"></main>
+  <script>
+    const views = {
+      '/a': '<h1>View A</h1><p id="text" oncontextmenu="return false" oncopy="return false">Text of view A</p>',
+      '/b': '<h1>View B</h1><p id="text" oncontextmenu="return false" oncopy="return false">Text of view B</p>',
+    };
+    const render = () => { document.getElementById('view').innerHTML = views[location.pathname] || views['/a']; };
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a[href^="/"]');
+      if (!link) return;
+      e.preventDefault();
+      history.pushState({}, '', link.getAttribute('href'));
+      render();
+    });
+    window.addEventListener('popstate', render);
+    render();
+  </script>
+</body>
+</html>

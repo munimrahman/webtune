@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dynamic fixture</title>
+<style>
+  body { font-family: sans-serif; margin: 16px; }
+  .item { margin: 8px 0; }
+  .item img { width: 150px; height: 100px; display: block; }
+  #bg-dyn { width: 120px; height: 60px; }
+  .lazy { width: 150px; height: 100px; }
+</style>
+</head>
+<body>
+  <h1>Dynamic fixture</h1>
+  <div id="root"><p id="initial-text">Initial text</p></div>
+  <div id="lazy-holder"></div>
+  <div id="other"></div>
+
+  <script>
+    const root = document.getElementById('root');
+    const files = ['red', 'green', 'blue', 'gray'];
+    let n = 0;
+
+    window.addImage = (container = root) => {
+      const img = document.createElement('img');
+      img.id = 'dyn-img-' + (++n);
+      img.src = 'assets/' + files[n % 4] + '.svg';
+      img.width = 150; img.height = 100;
+      container.append(img);
+      return img.id;
+    };
+    window.addVideo = (container = root) => {
+      const video = document.createElement('video');
+      video.id = 'dyn-video-' + (++n);
+      video.src = 'assets/clip.webm';
+      video.controls = true;
+      video.width = 320; video.height = 180;
+      container.append(video);
+      return video.id;
+    };
+    // Media inside a freshly created container tree, inserted in one operation.
+    window.addComponent = () => {
+      const card = document.createElement('div');
+      card.className = 'item';
+      card.id = 'component-' + (++n);
+      card.innerHTML = '<section><img src="assets/red.svg" width="150" height="100"></section><video src="assets/clip.webm" controls width="320" height="180"></video>';
+      root.append(card);
+      return card.id;
+    };
+    window.addBackground = () => {
+      const div = document.createElement('div');
+      div.id = 'bg-dyn';
+      div.style.backgroundImage = 'url(assets/bg.svg)';
+      root.append(div);
+    };
+    // Lazy image: the real src is only assigned later (like IntersectionObserver-driven loaders).
+    window.addLazy = () => {
+      const img = document.createElement('img');
+      img.id = 'lazy-img';
+      img.className = 'lazy';
+      img.dataset.src = 'assets/green.svg';
+      document.getElementById('lazy-holder').append(img);
+      setTimeout(() => { img.src = img.dataset.src; }, 200);
+    };
+    // SPA-style full replacement of the view.
+    window.renderView = (name) => {
+      root.innerHTML = '<h2 id="view-title">' + name + '</h2>' +
+        '<p id="view-text">View text for ' + name + '</p>' +
+        '<button id="view-button" type="button">View button</button>' +
+        '<nav id="view-nav"><a href="#a">Nav A</a></nav>' +
+        '<div class="card" id="view-card">Card</div>' +
+        '<input id="view-input" value="field">' +
+        '<img id="view-img" src="assets/blue.svg" width="150" height="100">';
+    };
+    window.removeNode = (id) => document.getElementById(id).remove();
+    window.moveNode = (id, toId) => document.getElementById(toId).append(document.getElementById(id));
+    window.replaceInitial = () => root.replaceChildren();
+  </script>
+</body>
+</html>

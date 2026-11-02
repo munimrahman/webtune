@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Many text nodes</title>
+<style>body { user-select: none; }</style></head>
+<body>
+  <script>
+    const n = Number(new URLSearchParams(location.search).get('n') || 500);
+    const items = [];
+    for (let i = 0; i < n; i++) items.push('<div><p>Paragraph ' + i + ' <span>with a span</span></p></div>');
+    document.body.innerHTML = items.join('');
+  </script>
+</body>
+</html>

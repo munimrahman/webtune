@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edge-case fixture</title>
+<style>
+  body { font-family: sans-serif; margin: 16px; }
+  img { vertical-align: top; }
+  #fixed-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 40px; background: #eee; }
+  #scroller { width: 200px; height: 120px; overflow: auto; border: 1px solid #999; }
+  #scroller img { display: block; width: 150px; height: 100px; }
+  .tiny { width: 1px; height: 1px; }
+  #hidden-holder { display: none; }
+  #hidden-holder img { width: 150px; height: 100px; }
+</style>
+</head>
+<body>
+  <img id="broken" src="assets/does-not-exist.png" width="150" height="100" alt="broken">
+  <img id="no-src" width="150" height="100" alt="no src">
+  <img id="tiny" class="tiny" src="assets/red.svg" alt="">
+  <img id="lazy-native" loading="lazy" src="assets/green.svg" width="150" height="100" alt="">
+  <div id="scroller"><img id="scroll-img-1" src="assets/red.svg"><img id="scroll-img-2" src="assets/green.svg"><img id="scroll-img-3" src="assets/blue.svg"></div>
+  <div id="hidden-holder"><img id="hidden-img" src="assets/red.svg"></div>
+  <div style="height: 1500px">spacer</div>
+  <img id="far-img" src="assets/gray.svg" width="150" height="100" alt="">
+  <div id="fixed-bar">fixed</div>
+</body>
+</html>

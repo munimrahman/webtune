@@ -1,0 +1,8 @@
+node_modules/
+worklog/
+test-results/
+playwright-report/
+project-plan.md
+test-instruction.md
+word-counter.md
+copy-context.md

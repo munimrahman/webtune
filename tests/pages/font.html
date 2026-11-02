@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Font fixture</title>
+<style>
+  :root { --size-var: 30px; }
+  html { font-size: 20px; }
+  body { font-family: sans-serif; margin: 16px; font-size: 15px; }
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.5em; }
+  p.px { font-size: 13px; }
+  p.rem { font-size: 1.2rem; }
+  p.var { font-size: var(--size-var); }
+  p.important { font-size: 40px !important; }
+  p.vw { font-size: 4vw; }
+  span.small { font-size: 9px; }
+  nav a { font-size: 0.8em; margin-right: 8px; }
+  .card { border: 1px solid #ccc; padding: 1rem; width: 300px; font-size: 1.1em; }
+  .card h3 { font-size: 1.8em; margin: 0; }
+  button { font-size: 11px; }
+  table td { font-size: 0.9rem; }
+  /* padding in rem must not change when only text is overridden */
+  #rem-box { padding: 1rem; background: #ddd; display: inline-block; }
+  label { font-size: 12px; }
+  input, select, textarea { font-size: 14px; }
+  li { font-size: 0.85em; }
+</style>
+</head>
+<body>
+  <h1 id="h1">Heading one</h1>
+  <h2 id="h2">Heading two</h2>
+  <nav id="nav"><a id="nav-link" href="#a">Home</a><a href="#b">About</a></nav>
+  <p id="p-px" class="px">Pixel paragraph</p>
+  <p id="p-rem" class="rem">Rem paragraph</p>
+  <p id="p-var" class="var">Variable paragraph</p>
+  <p id="p-important" class="important">Important paragraph</p>
+  <p id="p-inline" style="font-size: 33px">Inline-style paragraph</p>
+  <p id="p-vw" class="vw">Viewport-unit paragraph</p>
+  <p>Mixed <span id="span-small" class="small">small span</span> text <strong id="strong">strong</strong></p>
+  <ul id="list"><li id="li">List item</li></ul>
+  <div class="card" id="card"><h3 id="card-title">Card title</h3><p id="card-text">Card body text</p></div>
+  <form id="form">
+    <label id="label" for="name">Name</label>
+    <input id="name" type="text" value="Typed value" placeholder="Name">
+    <select id="select"><option>One</option></select>
+    <textarea id="textarea">Area</textarea>
+    <button id="button" type="button">Submit</button>
+  </form>
+  <table><tr><td id="td">Cell</td></tr></table>
+  <div id="rem-box">box</div>
+  <div id="inject"></div>
+  <script>
+    window.addText = () => {
+      document.getElementById('inject').innerHTML =
+        '<p id="dyn-p">Dynamic paragraph</p><h2 id="dyn-h">Dynamic heading</h2>' +
+        '<button id="dyn-button" type="button">Dynamic button</button>' +
+        '<nav><a id="dyn-nav" href="#x">Dynamic nav</a></nav>' +
+        '<div class="card" id="dyn-card">Dynamic card</div>' +
+        '<input id="dyn-input" value="dyn">';
+    };
+  </script>
+</body>
+</html>

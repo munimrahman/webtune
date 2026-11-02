@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "WebTune",
+  "version": "1.0.0",
+  "description": "Customize Your Web — globally hide page media, override font size and restore copy and right-click.",
+  "permissions": ["storage", "contextMenus"],
+  "background": {
+    "service_worker": "src/background/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "src/utils/storage.js",
+        "src/utils/style.js",
+        "src/content/features/media.js",
+        "src/content/features/font.js",
+        "src/content/features/copyProtection.js",
+        "src/content/features/wordCounter.js",
+        "src/content/content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_title": "WebTune — Customize Your Web",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

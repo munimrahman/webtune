@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Copy iframe fixture</title></head>
+<body>
+  <p>Parent page (not protected)</p>
+  <iframe id="same" src="copy.html" width="500" height="300"></iframe>
+  <iframe id="cross" width="500" height="300"></iframe>
+  <script>
+    // Same host name but a different host => a cross-origin frame.
+    document.getElementById('cross').src = location.origin.replace('127.0.0.1', 'localhost') + '/copy.html';
+  </script>
+</body>
+</html>

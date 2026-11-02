@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WebTune</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>WebTune</h1>
+      <p>Customize Your Web</p>
+    </header>
+
+    <section aria-labelledby="media-heading">
+      <h2 id="media-heading">Media</h2>
+      <div class="row">
+        <span id="media-label">Media Blocking</span>
+        <button id="media-toggle" class="toggle" type="button" role="switch" aria-checked="false" aria-labelledby="media-label">OFF</button>
+      </div>
+      <div class="actions">
+        <button id="hide-media" type="button" aria-pressed="false">Hide Media</button>
+        <button id="show-media" type="button" aria-pressed="true">Show Media</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="font-heading">
+      <h2 id="font-heading">Font Size</h2>
+      <div class="row">
+        <span id="font-label">Font Override</span>
+        <button id="font-toggle" class="toggle" type="button" role="switch" aria-checked="false" aria-labelledby="font-label">OFF</button>
+      </div>
+      <div class="row slider">
+        <input id="font-size" type="range" aria-label="Font size" />
+        <output id="font-size-value" for="font-size">16px</output>
+      </div>
+    </section>
+
+    <section aria-labelledby="copy-heading">
+      <h2 id="copy-heading">Copy &amp; Context Menu</h2>
+      <div class="row">
+        <span id="copy-label">Copy Protection</span>
+        <button id="copy-toggle" class="toggle" type="button" role="switch" aria-checked="false" aria-labelledby="copy-label">OFF</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="word-heading">
+      <h2 id="word-heading">Word Counter</h2>
+      <div class="row">
+        <span id="word-label">Word Counter</span>
+        <button id="word-toggle" class="toggle" type="button" role="switch" aria-checked="true" aria-labelledby="word-label">ON</button>
+      </div>
+    </section>
+
+    <script src="../utils/storage.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

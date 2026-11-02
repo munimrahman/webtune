@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Media fixture</title>
+<style>
+  body { font-family: sans-serif; margin: 16px; }
+  .row { display: flex; gap: 12px; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 150px); gap: 12px; margin-bottom: 16px; }
+  .card { border: 1px solid #ccc; padding: 8px; width: 170px; }
+  .card img { display: block; width: 150px; height: 100px; }
+  #bg { width: 200px; height: 80px; background-image: url(assets/bg.svg); background-color: #eee; margin-bottom: 16px; }
+  #bg-shorthand { width: 200px; height: 80px; background: #eee url(assets/bg.svg) repeat; margin-bottom: 16px; }
+  #bg-important { width: 200px; height: 80px; background-image: url(assets/bg.svg) !important; margin-bottom: 16px; }
+  #pseudo::before { content: ''; display: block; width: 60px; height: 40px; background-image: url(assets/bg.svg); }
+  #after-img { margin-top: 24px; }
+</style>
+</head>
+<body>
+  <h1>Media fixture</h1>
+  <div class="row" id="images">
+    <img id="img1" src="assets/red.svg" width="150" height="100" alt="one">
+    <img id="img2" src="assets/green.svg" width="150" height="100" alt="two">
+    <img id="img3" src="assets/blue.svg" width="150" height="100" alt="three">
+    <img id="img4" src="assets/gray.svg" width="150" height="100" alt="four">
+    <img id="img5" src="assets/red.svg" width="150" height="100" alt="five">
+  </div>
+
+  <div class="grid" id="grid">
+    <img id="grid1" src="assets/red.svg" width="150" height="100" alt="">
+    <img id="grid2" src="assets/green.svg" width="150" height="100" alt="">
+    <img id="grid3" src="assets/blue.svg" width="150" height="100" alt="">
+  </div>
+
+  <div class="card" id="card"><img id="card-img" src="assets/blue.svg" alt=""><p id="card-text">Card text</p></div>
+
+  <a id="link" href="#navigated"><img id="linked-img" src="assets/green.svg" width="150" height="100" alt="linked"></a>
+  <button id="btn-with-img" type="button"><img id="btn-img" src="assets/red.svg" width="40" height="30" alt=""></button>
+  <picture><source srcset="assets/gray.svg"><img id="pic-img" src="assets/gray.svg" width="150" height="100" alt=""></picture>
+
+  <p>
+    <video id="vid-controls" src="assets/clip.webm" controls width="320" height="180" preload="metadata"></video>
+    <video id="vid-plain" src="assets/clip.webm" width="320" height="180" preload="metadata"></video>
+    <video id="vid-poster" src="assets/clip.webm" poster="assets/blue.svg" controls width="320" height="180" preload="none"></video>
+    <video id="vid-auto" src="assets/clip.webm" autoplay muted loop width="320" height="180"></video>
+    <video id="vid-missing" controls width="320" height="180"><source src="assets/does-not-exist.webm" type="video/webm"></video>
+  </p>
+
+  <div id="bg"></div>
+  <div id="bg-shorthand"></div>
+  <div id="bg-important"></div>
+  <div id="pseudo"></div>
+  <p id="after-img">Text after images</p>
+  <button id="page-button" type="button" onclick="window.__pageClicks = (window.__pageClicks || 0) + 1">Page button</button>
+</body>
+</html>
